@@ -21,7 +21,9 @@ Since the total data provided was very large and it was our first time working w
 1. Data-Preprocessing - 
 
 Filled all NA's with an empty string.
+
 Combined the columns "TITLE", "DESCRIPTION", "BULLET_POINTS" into a new column "description" and dropped them (easier to process data).
+
 Dropped the column "BRAND" since it was very ambiguous as one brand can have different type of products falling in different browse nodes.
 
 2. Text-Preprocessing - 
