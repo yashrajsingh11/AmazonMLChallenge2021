@@ -1,4 +1,3 @@
-import numpy as np
 import csv
 import pandas as pd
 import nltk
@@ -7,7 +6,6 @@ import string
 from nltk.corpus import stopwords
 from nltk.tokenize import TweetTokenizer
 import zipfile
-nltk.download('averaged_perceptron_tagger')
 nltk.download('stopwords')
 import pickle
 
@@ -50,8 +48,8 @@ def process_tweet(words_):
 
   words_clean = []
   for word in words_tokens:
-    if (word not in stopwords_english and  # remove stopwords 
-        word not in string.punctuation):  # remove punctuation
+    if (word not in stopwords_english and   
+        word not in string.punctuation): 
       words_clean.append(word)
   
   words_clean = " ".join(words_clean)
@@ -79,7 +77,7 @@ sgd = Pipeline([('vect', CountVectorizer()),
                ])
  
 sgd.fit(myprocessed['description'], nodes[:50000])
-filename = 'batchsSGDFiftyK.sav'
+filename = 'SGDFiftyK.sav'
 pickle.dump(sgd, open(filename, 'wb'))
 
 test_df['TITLE'] = test_df['TITLE'].fillna(" ")
@@ -103,11 +101,11 @@ for i in range(0,len(test_df)):
   processed.append(process_tweet(raw))
 myprocessed1['description'] = processed
 
-filename = 'batchsSGDFiftyK.sav'
+filename = 'SGDFiftyK.sav'
 loaded_model = pickle.load(open(filename, 'rb'))
 
 predictions = loaded_model.predict(myprocessed1['description'])
 
 predictions_df['BROWSE_NODE_ID'] = predictions
 
-predictions_df.to_csv('Predictions50k.csv', index = False)
+predictions_df.to_csv('PredictionsFiftyk.csv', index = False)
